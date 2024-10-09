@@ -1,0 +1,22 @@
+* {
+    font-family: "Roboto Slab", serif;
+}
+
+.screen-background {
+    position: relative;
+    background: url("../Assets/backgroundscreen.png");
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.screen-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #152977; 
+    opacity: 0.9;
+    z-index: 1; 
+}
