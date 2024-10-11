@@ -4,12 +4,16 @@ import { Login } from "./components/pages/Login";
 import { Register } from "./components/pages/Register";
 import { Header } from "./components/pages/Header";
 import { Sidebar } from "./components/pages/Sidebar";
-
+import { Dashboard } from "./components/pages/Dashboard";
+import { Employees } from "./components/pages/Employees";
+import { Departments } from "./components/pages/Departments";
+import { SalarynAttendance } from "./components/pages/SalarynAttendance";
+import { Viewfeedbacks } from "./components/pages/Viewfeedbacks";
+import { Settings } from "./components/pages/Settings";
 
 const Layout = ({ children }) => {
   const location = useLocation();
   const showHeaderSidebar = location.pathname !== '/' && location.pathname !== '/register';
-
 
   return (
     <div className='wholecontainer'>
@@ -28,7 +32,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+        <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
         <Route path="/employees" element={<Layout><Employees /></Layout>} />
         <Route path="/departments" element={<Layout><Departments /></Layout>} />
         <Route path="/salary" element={<Layout><SalarynAttendance /></Layout>} />
@@ -38,7 +42,7 @@ function App() {
         <Route path="/viewfeedbacks" element={<Layout><Viewfeedbacks /></Layout>} />
         <Route path="/awardanemployee" element={<Layout><Awardanemployee /></Layout>} />
         <Route path="/settings" element={<Layout><Settings /></Layout>} />
-        <Route path="/logout" element={<Layout><Logout /></Layout>} /> */}
+        <Route path="/logout" element={<Layout><Logout /></Layout>} />
       </Routes>
     </Router>
   );
