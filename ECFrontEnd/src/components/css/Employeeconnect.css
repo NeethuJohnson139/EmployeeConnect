@@ -1,22 +1,764 @@
-* {
+ * {
     font-family: "Roboto Slab", serif;
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box; 
 }
 
+/* Login & Register CSS */
 .screen-background {
-    position: relative;
-    background: url("../Assets/backgroundscreen.png");
-    background-size: cover;
-    min-height: 100vh;
+    background: url("../Assets/backgroundscreen.png") no-repeat center center fixed;
+    background-size: cover; 
+    min-height: 100vh; 
+    width: 100vw;
+    overflow: hidden; 
+    position: relative; 
 }
 
 .screen-background::before {
     content: "";
-    position: absolute;
+    position: absolute; 
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #152977; 
-    opacity: 0.9;
+    background-color: rgba(21, 41, 119, 0.9); 
     z-index: 1; 
+}
+
+.screen-background .content {
+    position: relative;
+    z-index: 2; 
+    color: white; 
+    text-align: center; 
+    margin-top: 120px; 
+}
+
+.headercontent img {
+    width: 150px; 
+}
+
+.headercontent h1 {
+    font-size: 2.1rem;
+    letter-spacing: 2px;
+}
+
+.loginsection, .registersection {
+    position: relative;
+    width: 25%; 
+    height: auto; 
+    color: #000;
+    border: 2px solid rgb(246, 244, 244); 
+    border-radius: 6px;
+    margin: 20px auto; 
+    padding: 20px; 
+    background-color: #004aad; 
+}
+
+.registersection {
+    width: 45%; 
+}
+
+.loginsection .loginformbox {
+    width: 100%;
+    padding: 20px; 
+}
+
+.registersection .registerformbox {
+    width: 50%;
+    padding: 20px; 
+}
+
+form h1 {
+    font-size: 22px;
+    text-align: center;
+    color: white;
+}
+
+form .logininputs {
+    position: relative;
+    width: 100%;
+    height: 35px;
+    margin: 17px 3px 0;
+    display: flex;
+    align-items: center;
+}
+
+.logininputs input, .logininputs select {
+    flex: 1;
+    height: 100%;
+    min-width: 0;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 8px;
+    font-size: 16px;
+    color: white;
+    padding: 10px 45px 10px 20px;
+    box-sizing: border-box;
+}
+
+.logininputs select {
+    font-size: 16px;
+    padding: 5px 20px 5px 20px;
+    background-color: #004aad;
+}
+
+.logininputs input::placeholder, .logininputs select::placeholder {
+    color: white;
+}
+
+.logininputs .iconstyles {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: white;
+}
+
+.errormessage {
+    width: 310px;
+    color: #f8ff4a;
+    font-size: 14px;
+}
+
+form .forgotpassword {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.forgotpassword a, .agreeterms {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 240px;
+}
+
+.forgotpassword a:hover, .agreeterms:hover {
+    text-decoration: underline;
+}
+
+form button {
+    width: 50%;
+    height: 30px;
+    border: 2px solid rgb(198, 191, 191);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #fff;
+    background-image: linear-gradient(144deg, #ff3131, #ff914d);
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    margin: 2px auto;
+}
+
+form .registerlink, form .loginlink {
+    font-size: 13px;
+    text-align: center;
+    margin: 5px 0 5px;
+}
+
+.registerlink p, .registerlink p a, .loginlink p, .loginlink p a {
+    color: #ffde59;
+    text-decoration: underline;
+}
+
+.sections {
+    display: flex;
+    justify-content: space-between; 
+    gap: 20px; 
+}
+  
+.sectionone, .sectiontwo {
+    width: 48%; 
+}
+
+.agreeterms {
+    font-size: 14px;
+    margin: 15px 10px;
+}
+
+/* Header CSS */
+.headeritems {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    height: 80px;
+    background-color: #004aad;
+}
+
+.headerleft {
+    margin-left: 260;
+}
+
+.profileicon {
+    vertical-align: middle;
+    line-height: 1px;
+    font-size: 47px;
+    color: white;
+    margin-right: 5px;
+}
+  
+.profilename {
+    color: white;
+    font-size: 16px;
+}
+
+.logouticon {
+    vertical-align: middle;
+    line-height: 1px;
+    font-size: 32px;
+    color: rgb(247, 57, 57);
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+/* App CSS */
+.wholecontainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Sidebar CSS */
+#asidebar {
+    width: 310px;
+    background-color: #004aad;
+    overflow-y: auto;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    position: absolute;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.asidebartitle {
+    display: flex;
+    align-items: center;
+    padding: 15px 0px;
+}
+  
+.asidebarlogo {
+    width: 90px;
+    height: auto;
+    margin-right: 0px;
+}
+
+.companyname {
+    font-size: 20px;
+    color: #fff;
+    margin: 0;
+}
+  
+.sidebaricons {
+    font-size: 29px;
+    color: #fff;
+    vertical-align: middle;
+    line-height: 1px;
+}
+  
+.sidebarcontents {
+    padding: 0;
+    list-style-type: none;
+}
+  
+.sidebarcontentsitem {
+    padding: 15px 15px 15px 30px;
+    font-size: 15px;
+}
+  
+.sidebarcontentsitem:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+  
+.sidebarcontents > a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Dashboard CSS */
+.majorcontainer {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    margin-left: 275px;
+    color: #333;
+    background-color: #f8f9fa;
+}
+  
+.majortitle {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin-bottom: 20px;
+}
+  
+.majortitle h3 {
+    font-size: 23px;
+    font-weight: bold;
+    color: #004aad;
+    text-align: center;
+}
+ 
+.dashboardcards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px 70px;
+}
+  
+.singlecard {
+    background: linear-gradient(to right, #004aad, #cb6ce6);
+    border: 3px solid white;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: calc(32% - 20px);
+    padding: 20px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+}
+  
+.singlecardinner {
+    display: flex;
+    align-items: center; 
+    justify-content: flex-start; 
+    width: 100%;
+}
+  
+.singlecardinner img {
+    width: 130px; 
+    height: auto;
+    margin-right: 10px; 
+}
+  
+.text-content {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.text-content h1 {
+    font-size: 30px; 
+    margin: 0;
+    color: white;
+}
+
+.text-content h3 {
+    font-size: 17px; 
+    margin: 0;
+    color: white;
+}
+
+.title {
+    font-size: 1.3em;
+    text-align: center;
+    margin-top: 10px;
+    color: #004aad;
+}
+
+.projectcards {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+    margin: 20px 65px;
+    justify-content: space-evenly;
+}
+  
+.singleprojectcard {
+    background-color: #004aad;
+    border: 3px solid white;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 100%; 
+    padding: 10px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+.projectcontent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%;
+}
+
+.projectcontent h1 {
+    margin: 5px 0; 
+    color: white;
+    font-size: 18px;
+    flex: 1; 
+}
+
+.projectcontent h2 {
+    margin: 10px 0 5px 0; 
+    color: white;
+    font-size: 14px;
+    word-wrap: break-word; 
+    word-break: break-word; 
+    overflow-wrap: break-word; 
+    width: 100%; 
+    white-space: normal; 
+    flex-basis: 100%;
+}
+
+.projectcontent h3 {
+    color: #93f3ff;
+    cursor: pointer;
+    font-size: 14px;
+    flex-shrink: 0; 
+}
+
+.projectcontent h3:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.allprojectsbutton {
+    text-align: center;
+}
+
+.allprojectsbutton button{
+    width: 22%;
+    height: 35px;
+    background: linear-gradient(to right, #004aad, #cb6ce6);
+    border: 2px solid white;
+    border-radius: 6px;
+    color: #fff;
+}
+
+/* Settings CSS */
+.settingssection .settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.settingssection .settings form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 15px;
+}
+  
+.settinginputs {
+    color: #004aad;
+    text-align: center;
+    display: flex;
+}
+  
+.settingsbutton {
+    width: 70%;
+    height: 35px;
+    background: linear-gradient(to right, #004aad, #cb6ce6);
+    border: 2px solid white;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+}
+  
+.settingslabelname {
+    display: flex;
+    width: 250px;
+}
+
+/* Employees CSS */
+.employeessection {
+    margin-left: 40px;
+}
+
+.employeessection .addnewemployee {
+    border: 1px solid white;
+    background-color: #004aad;
+    border-radius: 4px;
+    padding: 10px 15px;
+    color: white;
+}
+
+.addemployeeicon {
+    font-size: 20px;
+    color: #fff;
+    vertical-align: middle;
+}
+
+.employeeslist {
+    border: 2px solid #004aad;
+    border-radius: 8px;
+}
+
+.employeestable {
+    overflow-x: auto;
+    margin: 15px;
+}
+
+.employeestable table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ffe5d7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.employeestable th, .employeestable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.employeestable th {
+    background-color: #004aad;
+    text-align: left;
+    font-size: 14px;
+    color: #eee;
+}
+
+.employeestable tbody tr {
+    color: #65686d;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.employeestable tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.employeestable tbody tr:nth-child(even) {
+    background-color: #cadaee;
+}
+
+.editemployee {
+    font-size: 20px;
+    color: green;
+    vertical-align: middle;
+    margin-left: 30px;
+}
+
+.deleteemployee {
+    font-size: 20px;
+    color: red;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* Departments CSS */
+
+.departmentsection {
+    margin-left: 40px;
+}
+
+.departmentsection .addnewdepartment {
+    border: 1px solid white;
+    background-color: #004aad;
+    border-radius: 4px;
+    padding: 10px 15px;
+    color: white;
+}
+
+.adddepartmenticon {
+    font-size: 20px;
+    color: #fff;
+    vertical-align: middle;
+  }
+
+.departmentlist {
+    border: 2px solid #004aad;
+    border-radius: 8px;
+}
+
+.departmenttable {
+    overflow-x: auto;
+    margin: 15px;
+}
+
+.departmenttable table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ffe5d7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.departmenttable th, .departmenttable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.departmenttable th {
+    background-color: #004aad;
+    text-align: left;
+    font-size: 14px;
+    color: #eee;
+}
+
+.departmenttable tbody tr {
+    color: #65686d;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.departmenttable tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.departmenttable tbody tr:nth-child(even) {
+    background-color: #cadaee;
+}
+
+.editdepartment {
+    font-size: 20px;
+    color: green;
+    vertical-align: middle;
+    margin-left: 30px;
+}
+
+/* Leave approval CSS */
+.leavesection {
+    margin-left: 40px;
+}
+
+.leavelist {
+    border: 2px solid #004aad;
+    border-radius: 8px;
+}
+
+.leavetable {
+    overflow-x: auto;
+    margin: 15px;
+}
+
+.leavetable table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ffe5d7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.leavetable th, .leavetable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.leavetable th {
+    background-color: #004aad;
+    text-align: left;
+    font-size: 14px;
+    color: #eee;
+}
+
+.leavetable tbody tr {
+    color: #65686d;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.leavetable tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.leavetable tbody tr:nth-child(even) {
+    background-color: #cadaee;
+}
+
+.approveleave, .rejectleave  {
+    width: 70px;
+    height: 25px;
+    font-size: 10px;
+    color: white;
+    vertical-align: middle;
+    margin-left: 30px;
+    border: 2px solid white;
+    border-radius: 6px;
+}
+
+.approveleave {
+    background-color: green;
+}
+
+.rejectleave {
+    background-color: red;
+}
+
+.salaryinfosection {
+    position: relative;
+    height: auto; 
+    color: #000;
+    border: 2px solid #004aad; 
+    border-radius: 6px;
+    margin: 20px auto; 
+    padding: 10px; 
+    background-color: white; 
+    width: 40%; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.salaryinputs {
+    position: relative;
+    width: 90%;
+    height: 32px;
+    margin: 17px 10px 0 10px;
+    display: flex;
+    align-items: center;
+    color: #004aad;
+}
+
+.salaryoutputs {
+    position: relative;
+    width: 90%;
+    height: 32px;
+    margin: 0px 10px 0 10px;
+    display: flex;
+    align-items: center;
+    color: #004aad;
+}
+
+.salaryinputs label, .salaryoutputs label {
+    display: flex;
+    width: 200px;
+  }
+  
+.salaryinputs input, .salaryinputs select {
+    flex: 1;
+    height: 100%;
+    min-width: 0;
+    background: transparent;
+    border: 2px solid #004aad;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #004aad;
+    padding: 10px 4px 10px 10px;
+    box-sizing: border-box;
+}
+
+.salaryinputs select {
+    font-size: 15px;
+    padding: 2px 20px 5px 10px;
+    background-color: white;
+}
+
+.salaryinputs input::placeholder, .salaryinputs select::placeholder {
+    color: white;
+}
+
+.salaryinfosection button {
+    width: 30%;
+    height: 32px;
+    background: linear-gradient(to right, #004aad, #cb6ce6);
+    border: 2px solid white;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 13px;
 }
