@@ -42,6 +42,11 @@ export const Sidebar = () => {
             <FaMoneyCheckDollar className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;SALARY & ATTENDANCE
           </li>
         </Link>
+        <Link to="/leaveapproval">
+          <li className="sidebarcontentsitem">
+            <BsCalendarDateFill className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;LEAVE APPROVAL
+          </li>
+        </Link>
 {/*         <Link to="/createprojects">
           <li className="sidebarcontentsitem">
             <RiNewspaperFill className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;CREATE PROJECTS
@@ -67,6 +72,7 @@ export const Sidebar = () => {
             <FaAward className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;AWARD AN EMPLOYEE
           </li>
         </Link> */}
+
         <Link to="/settings">
           <li className="sidebarcontentsitem">
             <IoSettings className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;SETTINGS

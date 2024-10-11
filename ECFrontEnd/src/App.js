@@ -10,6 +10,7 @@ import { Departments } from "./components/pages/Departments";
 import { SalarynAttendance } from "./components/pages/SalarynAttendance";
 import { Viewfeedbacks } from "./components/pages/Viewfeedbacks";
 import { Settings } from "./components/pages/Settings";
+import {Leaveapproval} from "./components/pages/Leaveapproval";
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -36,13 +37,16 @@ function App() {
         <Route path="/employees" element={<Layout><Employees /></Layout>} />
         <Route path="/departments" element={<Layout><Departments /></Layout>} />
         <Route path="/salary" element={<Layout><SalarynAttendance /></Layout>} />
-        <Route path="/createprojects" element={<Layout><Createprojects /></Layout>} />
         <Route path="/leaveapproval" element={<Layout><Leaveapproval /></Layout>} />
-        <Route path="/rewards" element={<Layout><Rewards /></Layout>} />
-        <Route path="/viewfeedbacks" element={<Layout><Viewfeedbacks /></Layout>} />
+        {/* <Route path="/createprojects" element={<Layout><Createprojects /></Layout>} />
+        
         <Route path="/awardanemployee" element={<Layout><Awardanemployee /></Layout>} />
-        <Route path="/settings" element={<Layout><Settings /></Layout>} />
         <Route path="/logout" element={<Layout><Logout /></Layout>} />
+        <Route path="/rewards" element={<Layout><Rewards /></Layout>} /> */}
+        <Route path="/viewfeedbacks" element={<Layout><Viewfeedbacks /></Layout>} />
+        
+        <Route path="/settings" element={<Layout><Settings /></Layout>} />
+        
       </Routes>
     </Router>
   );
