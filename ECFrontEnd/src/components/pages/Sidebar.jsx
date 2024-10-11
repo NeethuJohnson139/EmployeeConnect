@@ -42,7 +42,7 @@ export const Sidebar = () => {
             <FaMoneyCheckDollar className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;SALARY & ATTENDANCE
           </li>
         </Link>
-        <Link to="/createprojects">
+{/*         <Link to="/createprojects">
           <li className="sidebarcontentsitem">
             <RiNewspaperFill className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;CREATE PROJECTS
           </li>
@@ -56,17 +56,17 @@ export const Sidebar = () => {
           <li className="sidebarcontentsitem">
             <FaGift className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;REWARDS
           </li>
-        </Link>      
+        </Link>       */}
         <Link to="/viewfeedbacks">
           <li className="sidebarcontentsitem">
             <IoLogoWechat className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;VIEW FEEDBACKS
           </li>
         </Link>
-        <Link to="/awardanemployee">
+{/*         <Link to="/awardanemployee">
           <li className="sidebarcontentsitem">
             <FaAward className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;AWARD AN EMPLOYEE
           </li>
-        </Link>
+        </Link> */}
         <Link to="/settings">
           <li className="sidebarcontentsitem">
             <IoSettings className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;SETTINGS
