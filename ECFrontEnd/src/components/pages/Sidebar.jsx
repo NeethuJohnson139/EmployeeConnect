@@ -47,12 +47,12 @@ export const Sidebar = () => {
             <BsCalendarDateFill className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;LEAVE APPROVAL
           </li>
         </Link>
-{/*         <Link to="/createprojects">
+       <Link to="/createprojects">
           <li className="sidebarcontentsitem">
             <RiNewspaperFill className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;CREATE PROJECTS
           </li>
         </Link>
-        <Link to="/leaveapproval">
+      {/*    <Link to="/leaveapproval">
           <li className="sidebarcontentsitem">
             <BsCalendarDateFill className="sidebaricons" />&nbsp;&nbsp;&nbsp;&nbsp;LEAVE APPROVAL
           </li>
