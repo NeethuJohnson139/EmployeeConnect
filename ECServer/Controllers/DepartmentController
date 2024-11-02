@@ -1,99 +1,164 @@
-using ECServer.Database;
-using ECServer.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Data;
+import React, { useState, useEffect } from "react";
+import axiosInstance from "../Utils/ServerInstance";
+import { MdAddToPhotos } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
-namespace ECServer.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class DepartmentController : ControllerBase
-    {
-        private readonly DataLayer _dataLayer;
+export const Departments = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [departments, setDepartments] = useState([]);
+  const [newDepartment, setNewDepartment] = useState({
+    id: "",
+    name: "",
+    addedDate: "",
+  });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null);
 
-        public DepartmentController(DataLayer dataLayer)
-        {
-            _dataLayer = dataLayer;
-        }
+  // Fetch all departments on component mount
+  useEffect(() => {
+    fetchDepartments();
+  }, []);
 
-        // GET: api/Department
-        [HttpGet]
-        public IActionResult GetAllDepartments()
-        {
-            var dt = _dataLayer.GetFromDb("sp_GetAllDepartments");
-            if (dt == null) return StatusCode(500, "Internal server error.");
-
-            var departments = new List<Department>();
-
-            foreach (DataRow row in dt.Rows)
-            {
-                departments.Add(new Department
-                {
-                    DepartmentId = Convert.ToInt32(row["DepartmentId"]),
-                    DepartmentName = row["DepartmentName"].ToString(),
-                    AddedDate = Convert.ToDateTime(row["AddedDate"])
-                });
-            }
-
-            return Ok(departments);
-        }
-
-        // GET: api/Department/{id}
-        [HttpGet("{id}")]
-        public IActionResult GetDepartmentById(int id)
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "@DepartmentId", id }
-            };
-
-            var dt = _dataLayer.GetFromDb("sp_GetDepartmentById", parameters);
-            if (dt == null || dt.Rows.Count == 0) return NotFound("Department not found.");
-
-            var row = dt.Rows[0];
-            var department = new Department
-            {
-                DepartmentId = Convert.ToInt32(row["DepartmentId"]),
-                DepartmentName = row["DepartmentName"].ToString(),
-                AddedDate = Convert.ToDateTime(row["AddedDate"])
-            };
-
-            return Ok(department);
-        }
-
-        // POST: api/Department
-        [HttpPost]
-        public IActionResult CreateDepartment(Department department)
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "@DepartmentName", department.DepartmentName }
-            };
-
-            var result = _dataLayer.ExecuteNonQuery("sp_AddDepartment", parameters);
-            if (result == -1) return StatusCode(500, "Error creating department.");
-
-            return CreatedAtAction(nameof(GetDepartmentById), new { id = department.DepartmentId }, department);
-        }
-
-        // PUT: api/Department/{id}
-        [HttpPut("{id}")]
-        public IActionResult UpdateDepartment(int id, Department department)
-        {
-            var parameters = new Dictionary<string, object>
-            {
-                { "@DepartmentId", id },
-                { "@DepartmentName", department.DepartmentName }
-            };
-
-            var result = _dataLayer.ExecuteNonQuery("sp_UpdateDepartment", parameters);
-            if (result == -1) return StatusCode(500, "Error updating department.");
-
-            return NoContent();
-        }
-
-        
+  const fetchDepartments = async () => {
+    try {
+      const response = await axiosInstance.get("/department");
+      setDepartments(response.data);
+    } catch (error) {
+      console.error("Error fetching departments:", error);
     }
-}
+  };
+
+  const handleAddDepartment = () => {
+    setShowForm(true);
+    setIsEditing(false);
+    setNewDepartment({ id: "", name: "", addedDate: "" });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewDepartment((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSaveDepartment = async () => {
+    try {
+      if (isEditing) {
+        // Update department
+        await axiosInstance.put(`/department/${editId}`, {
+          departmentName: newDepartment.name,
+          addedDate: newDepartment.addedDate,
+        });
+      } else {
+        // Add department
+        await axiosInstance.post("/department", {
+          DepartmentName: newDepartment.name,
+          AddedDate: newDepartment.addedDate,
+        });
+      }
+      fetchDepartments();
+      setShowForm(false);
+    } catch (error) {
+      console.error("Error saving department:", error);
+    }
+  };
+
+  const handleEditDepartment = (id, dept) => {
+    setShowForm(true);
+    setIsEditing(true);
+    setEditId(id);
+    setNewDepartment({
+      id: dept.departmentId,
+      name: dept.departmentName,
+      addedDate: dept.addedDate,
+    });
+  };
+
+  const handleDeleteDepartment = async (id) => {
+    try {
+      await axiosInstance.delete(`/department/${id}`);
+      fetchDepartments();
+    } catch (error) {
+      console.error("Error deleting department:", error);
+    }
+  };
+
+  return (
+    <main className="majorcontainer">
+      <div className="majortitle">
+        <h3>DEPARTMENTS</h3>
+      </div>
+      <div id="departmentsection" className="departmentsection">
+        <button className="addnewdepartment" onClick={handleAddDepartment}>
+          <b>
+            <span>ADD NEW DEPARTMENT</span>
+          </b>
+          <MdAddToPhotos className="adddepartmenticon" />
+        </button>
+
+        {showForm && (
+          <div className="form-style">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter Department Name"
+              value={newDepartment.name}
+              onChange={handleChange}
+            />
+
+            <input
+              type="date"
+              id="addedDate"
+              name="addedDate"
+              value={newDepartment.addedDate}
+              onChange={handleChange}
+            />
+
+            <button onClick={handleSaveDepartment}>
+              {isEditing ? "Update" : "Save"}
+            </button>
+          </div>
+        )}
+
+        <div className="departmentlist">
+          <div className="departmenttable">
+            <table>
+              <thead>
+                <tr>
+                  <th>DEPARTMENT ID</th>
+                  <th>DEPARTMENT NAME</th>
+                  <th>ADDED DATE</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {departments.map((dept) => (
+                  <tr key={dept.departmentId}>
+                    <td>{dept.departmentId}</td>
+                    <td>{dept.departmentName}</td>
+                    <td>{dept.addedDate}</td>
+                    <td>
+                      <FaEdit
+                        className="editdepartment"
+                        onClick={() =>
+                          handleEditDepartment(dept.departmentId, dept)
+                        }
+                      />
+                      &nbsp;&nbsp;
+                      <RiDeleteBin5Fill
+                        className="deletedepartment"
+                        onClick={() =>
+                          handleDeleteDepartment(dept.departmentId)
+                        }
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+};
