@@ -4,96 +4,108 @@ import { useNavigate } from "react-router-dom";
 import employeeconnect_logo from "../Assets/Logo.png";
 import { FaUserAlt } from "react-icons/fa";
 import { BsEyeSlashFill } from "react-icons/bs";
-import { FaPhoneVolume } from "react-icons/fa6";
-import { MdEmail, MdDateRange, MdTitle } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
+import axiosInstance from "../Utils/ServerInstance";
 
 export const Register = () => {
-  const [registername, setregistername] = useState("");
-  const [registerpassword, setregisterpassword] = useState("");
-  const [confirmpassword, setconfirmpassword] = useState("");
-  const [emailid, setemailid] = useState("");
-  const [contactno, setcontactno] = useState("");
-  const [dateofbirth, setdateofbirth] = useState("");
-  const [dateofjoining, setdateofjoining] = useState("");
-  const [jobrole, setjobrole] = useState("");
-  const [department, setdepartment] = useState("");
-  const [jobtitle, setjobtitle] = useState("");
-  const [registererrors, setRegisterErrors] = useState({ registername: "", registerpassword: "" ,
-    confirmpassword: "", emailid: "", contactno: "", dateofbirth: "", dateofjoining: "", jobrole: "",
-    department: "", jobtitle: ""  });
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    confirmPassword: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    dateOfJoining: "",
+    profilePicture: null,
+  });
+  const [registerErrors, setRegisterErrors] = useState({});
   const navigate = useNavigate();
 
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
+  };
+
   const validateRegisterForm = () => {
+    const errors = {};
     let formValid = true;
-    let registererrors = {};
 
-    if (!registername) {
+    if (!formData.username) {
       formValid = false;
-      registererrors.registername = "Username cannot be empty";
+      errors.username = "Username cannot be empty";
     }
 
-    const passwordExp = /^[A-Za-z\d]{8,}$/;
-    if (!registerpassword.match(passwordExp)) {
+    if (!formData.password || formData.password.length < 8) {
       formValid = false;
-      registererrors.registerpassword = "Password must be at least 8 characters long";
+      errors.password = "Password must be at least 8 characters long";
     }
 
-    if (registerpassword !== confirmpassword) {
+    if (formData.password !== formData.confirmPassword) {
       formValid = false;
-      registererrors.confirmpassword = "Passwords do not match!!";
+      errors.confirmPassword = "Passwords do not match";
     }
 
     const emailExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailid.match(emailExp)) {
-    formValid = false;
-    registererrors.emailid = "Invalid email format";
-  }
+    if (!emailExp.test(formData.email)) {
+      formValid = false;
+      errors.email = "Invalid email format";
+    }
 
-  // Contact number validation (10 digits)
-  const contactExp = /^\d{10}$/;
-  if (!contactno.match(contactExp)) {
-    formValid = false;
-    registererrors.contactno = "Contact number must be 10 digits long";
-  }
+    if (!formData.firstName) {
+      formValid = false;
+      errors.firstName = "First name cannot be empty";
+    }
 
-  // Date of Birth validation (check if a date is selected)
-  if (!dateofbirth) {
-    formValid = false;
-    registererrors.dateofbirth = "Please select your date of birth";
-  }
+    if (!formData.lastName) {
+      formValid = false;
+      errors.lastName = "Last name cannot be empty";
+    }
 
-  // Date of Joining validation (check if a date is selected)
-  if (!dateofjoining) {
-    formValid = false;
-    registererrors.dateofjoining = "Please select your date of joining";
-  }
+    if (!formData.dateOfJoining) {
+      formValid = false;
+      errors.dateOfJoining = "Please select your date of joining";
+    }
 
-  // Job Role validation (ensure a selection is made)
-  if (!jobrole) {
-    formValid = false;
-    registererrors.jobrole = "Please select a job role";
-  }
+    // if (!formData.profilePicture) {
+    //   formValid = false;
+    //   errors.profilePicture = "Please upload a profile picture";
+    // }
 
-  // Department validation (ensure a selection is made)
-  if (!department) {
-    formValid = false;
-    registererrors.department = "Please select a department";
-  }
-
-  // Job Title validation (ensure the job title is not empty)
-  if (!jobtitle) {
-    formValid = false;
-    registererrors.jobtitle = "Job title cannot be empty";
-  }
-    setRegisterErrors(registererrors);
+    setRegisterErrors(errors);
     return formValid;
   };
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     if (validateRegisterForm()) {
-      navigate("/");
-     
+      try {
+        const formDataToSend = new FormData();
+        // Append form data
+        formDataToSend.append("username", formData.username);
+        formDataToSend.append("PasswordHash", formData.password);
+        formDataToSend.append("email", formData.email);
+        formDataToSend.append("firstName", formData.firstName);
+        formDataToSend.append("lastName", formData.lastName);
+        formDataToSend.append("dateOfJoining", formData.dateOfJoining);
+        // if (formData.profilePicture) {
+        //   formDataToSend.append("profilePicture", formData.profilePicture);
+        // }
+
+        // Make the API call to register
+        const response = await axiosInstance.post(
+          "/User/Register",
+          formDataToSend
+        );
+        // Handle successful registration
+        console.log("Registration successful:", response.data);
+        navigate("/"); // Navigate to the home page or desired route
+      } catch (error) {
+        console.error("Registration failed:", error);
+        setRegisterErrors({ api: "Registration failed. Please try again." });
+      }
     }
   };
 
@@ -110,95 +122,137 @@ export const Register = () => {
             <form onSubmit={handleRegisterSubmit}>
               <h1>REGISTER HERE</h1>
               <br />
-              <div className="sections">
-                <div className="sectionone">
-                  <div className="logininputs">
-                    <input type="text" placeholder="Username" id="user_name"
-                      value={registername} onChange={(e) => setregistername(e.target.value)} />
-                    <FaUserAlt className="iconstyles" />
-                  </div>
-                  {registererrors.registername && (<span className="errormessage">{registererrors.registername}</span>)}
-                  <div className="logininputs">
-                    <input type="password" placeholder="Password" id="user_password" 
-                      value={registerpassword} onChange={(e) => setregisterpassword(e.target.value)} />
-                    <BsEyeSlashFill className="iconstyles" />
-                  </div>
-                  {registererrors.registerpassword && (<span className="errormessage">{registererrors.registerpassword}</span>)}
-                  <div className="logininputs">
-                    <input type="password" placeholder="Confirm Password"id="confirm_password" 
-                      value={confirmpassword} onChange={(e) => setconfirmpassword(e.target.value)} />
-                    <BsEyeSlashFill className="iconstyles" />
-                  </div>
-                  {registererrors.confirmpassword && (<span className="errormessage">{registererrors.confirmpassword}</span>)}
-                  <div className="logininputs">
-                    <input type="text" placeholder="Email ID" id="email_id"
-                      value={emailid} onChange={(e) => setemailid(e.target.value)} />
-                    <MdEmail className="iconstyles" />
-                  </div>
-                  {registererrors.emailid && (<span className="errormessage">{registererrors.emailid}</span>)}
-                  <div className="logininputs">
-                    <input type="tel" placeholder="Contact Number" id="contact_no" 
-                      value={contactno} onChange={(e) => setcontactno(e.target.value)} />
-                    <FaPhoneVolume className="iconstyles" />
-                  </div>
-                  {registererrors.contactno && (<span className="errormessage">{registererrors.contactno}</span>)}
-                </div>
-                <div className="sectiontwo">
-                  <div className="logininputs">
-                    <input type="text" placeholder="Date of Birth" id="dateofbirth"
-                      value={dateofbirth} onChange={(e) => setdateofbirth(e.target.value)} />
-                    <MdDateRange className="iconstyles" />
-                  </div>
-                  {registererrors.dateofbirth && (<span className="errormessage">{registererrors.dateofbirth}</span>)}
-                  <div className="logininputs">
-                    <input type="text" placeholder="Date of Joining"
-                      id="dateofjoining" value={dateofjoining} onChange={(e) => setdateofjoining(e.target.value)} />
-                    <MdDateRange className="iconstyles" />
-                  </div>
-                  {registererrors.dateofjoining && (<span className="errormessage">{registererrors.dateofjoining}</span>)}             
-                  <div className="logininputs">
-                    <select id="job_role" value={jobrole} onChange={(e) => setjobrole(e.target.value)}>
-                      <option value="">Select Job Role</option>
-                      <option value="Employee">Employee</option>
-                      <option value="HR">HR</option>
-                      <option value="Admin">Admin</option>
-                    </select>
-                  </div>
-                  {registererrors.jobrole && (<span className="errormessage">{registererrors.jobrole}</span>)}
-                  <div className="logininputs">
-                    <select id="department" value={department} onChange={(e) => setdepartment(e.target.value)}>
-                      <option value="">Select Department</option>
-                      <option value="admin">Admin</option>
-                      <option value="kitchen">Kitchen</option>
-                      <option value="waiter">Waiter</option>
-                      <option value="cashier">Cashier</option>
-                    </select>
-                  </div>
-                  {registererrors.department && (<span className="errormessage">{registererrors.department}</span>)}
-                  <div className="logininputs">
-                    <input type="text" placeholder="Job Title"
-                      id="jobtitle" value={jobtitle} onChange={(e) => setjobtitle(e.target.value)} />
-                    <MdTitle className="iconstyles" />
-                  </div>
-                  {registererrors.jobtitle && (<span className="errormessage">{registererrors.jobtitle}</span>)}
-                </div>
-              </div>           
-              <div className="agreeterms">
-                <label>
-                  <input type="checkbox" />&nbsp;&nbsp;I agree to the terms & conditions
-                </label>
+              {registerErrors.api && (
+                <span className="errormessage">{registerErrors.api}</span>
+              )}
+              <div className="logininputs">
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  value={formData.username}
+                  onChange={handleChange}
+                />
+                <FaUserAlt className="iconstyles" />
+                {registerErrors.username && (
+                  <span className="errormessage">
+                    {registerErrors.username}
+                  </span>
+                )}
               </div>
-              <button type="submit">REGISTER</button>
-              <div className="loginlink">
-                <p>
-                  ALREADY HAVE AN ACCOUNT?{" "}
-                  <a href="#" onClick={() => navigate("/")}>LOGIN NOW</a>
-                </p>
+
+              <div className="logininputs">
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                <BsEyeSlashFill className="iconstyles" />
+                {registerErrors.password && (
+                  <span className="errormessage">
+                    {registerErrors.password}
+                  </span>
+                )}
               </div>
+
+              <div className="logininputs">
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                />
+                <BsEyeSlashFill className="iconstyles" />
+                {registerErrors.confirmPassword && (
+                  <span className="errormessage">
+                    {registerErrors.confirmPassword}
+                  </span>
+                )}
+              </div>
+
+              <div className="logininputs">
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                <MdEmail className="iconstyles" />
+                {registerErrors.email && (
+                  <span className="errormessage">{registerErrors.email}</span>
+                )}
+              </div>
+
+              <div className="logininputs">
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                />
+                {registerErrors.firstName && (
+                  <span className="errormessage">
+                    {registerErrors.firstName}
+                  </span>
+                )}
+              </div>
+
+              <div className="logininputs">
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
+                {registerErrors.lastName && (
+                  <span className="errormessage">
+                    {registerErrors.lastName}
+                  </span>
+                )}
+              </div>
+
+              <div className="logininputs">
+                <input
+                  type="date"
+                  name="dateOfJoining"
+                  placeholder="Date of Joining"
+                  value={formData.dateOfJoining}
+                  onChange={handleChange}
+                />
+                {registerErrors.dateOfJoining && (
+                  <span className="errormessage">
+                    {registerErrors.dateOfJoining}
+                  </span>
+                )}
+              </div>
+
+              {/* <div className="logininputs">
+                <input
+                  type="file"
+                  name="profilePicture"
+                  accept="image/*"
+                  onChange={handleChange}
+                />
+                {registerErrors.profilePicture && (
+                  <span className="errormessage">
+                    {registerErrors.profilePicture}
+                  </span>
+                )}
+              </div> */}
+
+              <button type="submit" className="loginbutton">
+                Register
+              </button>
             </form>
           </div>
         </div>
-      </div>    
+      </div>
     </div>
   );
 };
