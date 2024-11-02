@@ -1,4 +1,4 @@
- * {
+* {
     font-family: "Roboto Slab", serif;
     margin: 0;
     padding: 0; 
@@ -47,7 +47,7 @@
     position: relative;
     width: 25%; 
     height: auto; 
-    color: #000;
+    color: #fff;
     border: 2px solid rgb(246, 244, 244); 
     border-radius: 6px;
     margin: 20px auto; 
@@ -93,7 +93,7 @@ form .logininputs {
     border-radius: 8px;
     font-size: 16px;
     color: white;
-    padding: 10px 45px 10px 20px;
+    padding: 5px 18px 5px 20px;
     box-sizing: border-box;
 }
 
@@ -148,7 +148,12 @@ form button {
     color: #fff;
     background-image: linear-gradient(144deg, #ff3131, #ff914d);
     box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-    margin: 2px auto;
+    margin: 15px auto;
+}
+
+form .logininputs label
+{
+    padding-right: 20px ;
 }
 
 form .registerlink, form .loginlink {
@@ -352,7 +357,7 @@ form .registerlink, form .loginlink {
     color: white;
 }
 
-.title {
+/* .title {
     font-size: 1.3em;
     text-align: center;
     margin-top: 10px;
@@ -435,7 +440,7 @@ form .registerlink, form .loginlink {
     border: 2px solid white;
     border-radius: 6px;
     color: #fff;
-}
+} */
 
 /* Settings CSS */
 .settingssection .settings {
@@ -495,6 +500,7 @@ form .registerlink, form .loginlink {
 .employeeslist {
     border: 2px solid #004aad;
     border-radius: 8px;
+    margin: 40px auto;
 }
 
 .employeestable {
@@ -573,6 +579,7 @@ form .registerlink, form .loginlink {
 .departmentlist {
     border: 2px solid #004aad;
     border-radius: 8px;
+    margin: 40px auto;
 }
 
 .departmenttable {
@@ -762,3 +769,181 @@ form .registerlink, form .loginlink {
     color: #fff;
     font-size: 13px;
 }
+
+/* Style for the form container */
+.form-style {
+    border: 2px solid #004aad;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 15px;
+  }
+  
+  /* Style for form inputs */
+  .form-style input[type="text"],
+  .form-style input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  /* Style for form button */
+  .form-style button {
+  border: 1px solid white;
+  background-color: #004aad;
+  border-radius: 4px;
+  padding: 10px 15px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  width: 50%;
+  transition: background-color 0.3s;
+  height: fit-content;
+  }
+  
+  .form-style button:hover {
+    background-color: #004aad;
+  }
+  
+
+  /* Container for recent projects */
+.recentprojects {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title styling */
+  .title {
+
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    text-align: center;
+    margin-top: 10px;
+    color: #004aad;
+  }
+  
+  /* Project card container */
+  .projectcards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    margin: 50px;
+  }
+  
+  /* Single project card */
+  .singleprojectcard {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: calc(33.333% - 20px); /* Responsive grid */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: linear-gradient(to right, #004aad, #cb6ce6);
+  }
+  
+  .singleprojectcard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Project header */
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .project-header h1 {
+    font-size: 1.2em;
+    color: #fff;
+  }
+  
+  .project-header h3 {
+    font-size: 0.9em;
+    color: #fff;;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  /* Project content */
+  .projectcontent p {
+    margin: 10px 0;
+    color: #fff;;
+    font-size: 0.9em;
+  }
+  
+  .projectcontent strong {
+    color: #fff;;
+  }
+  
+  /* More details section */
+  .more-details {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  /* Button styling */
+  .allprojectsbutton {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .allprojectsbutton button {
+    padding: 10px 20px;
+    background-color: #004aad;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .allprojectsbutton button:hover {
+    background-color: #003b7a;
+  }
+  
+
+  .form-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* Adjusts space between items */
+    flex-wrap: wrap; /* Ensures responsiveness */
+    margin: 0px 50px;
+  }
+
+  .margin-form
+  {
+    margin: 0px 50px !important;
+  }
+  
+  .form-item {
+    flex: 1;
+    min-width: 150px; /* Ensures items do not shrink too much */
+    /* margin: 5px; */
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  button {
+    flex: 1;
+    max-width: 150px; /* Keeps button size reasonable */
+    margin: 5px;
+  }
+  
+  

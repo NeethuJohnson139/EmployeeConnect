@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lenovo\\source\\repos\\EmployeeConnect\\ECServer\\ECServer.csproj": {}
+    "D:\\latest\\EmployeeConnect\\ECServer\\ECServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lenovo\\source\\repos\\EmployeeConnect\\ECServer\\ECServer.csproj": {
+    "D:\\latest\\EmployeeConnect\\ECServer\\ECServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\source\\repos\\EmployeeConnect\\ECServer\\ECServer.csproj",
+        "projectUniqueName": "D:\\latest\\EmployeeConnect\\ECServer\\ECServer.csproj",
         "projectName": "ECServer",
-        "projectPath": "C:\\Users\\lenovo\\source\\repos\\EmployeeConnect\\ECServer\\ECServer.csproj",
-        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\source\\repos\\EmployeeConnect\\ECServer\\obj\\",
+        "projectPath": "D:\\latest\\EmployeeConnect\\ECServer\\ECServer.csproj",
+        "packagesPath": "C:\\Users\\neeth\\.nuget\\packages\\",
+        "outputPath": "D:\\latest\\EmployeeConnect\\ECServer\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\neeth\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -50,9 +46,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.6, )"
             }
           },
           "imports": [
@@ -74,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

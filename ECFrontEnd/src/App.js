@@ -11,6 +11,7 @@ import { SalarynAttendance } from "./components/pages/SalarynAttendance";
 import { Viewfeedbacks } from "./components/pages/Viewfeedbacks";
 import { Settings } from "./components/pages/Settings";
 import {Leaveapproval} from "./components/pages/Leaveapproval";
+import { Createprojects } from './components/pages/Createprojects';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -38,6 +39,7 @@ function App() {
         <Route path="/departments" element={<Layout><Departments /></Layout>} />
         <Route path="/salary" element={<Layout><SalarynAttendance /></Layout>} />
         <Route path="/leaveapproval" element={<Layout><Leaveapproval /></Layout>} />
+        <Route path="/createprojects" element={<Layout><Createprojects /></Layout>} />
         {/* <Route path="/createprojects" element={<Layout><Createprojects /></Layout>} />
         
         <Route path="/awardanemployee" element={<Layout><Awardanemployee /></Layout>} />
